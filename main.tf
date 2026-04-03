@@ -161,6 +161,7 @@ module "s3" {
 resource "aws_ecr_repository" "this" {
   for_each = local.ecr_repositories
   name     = each.value
+  force_delete = true
 }
 
 resource "aws_ecr_lifecycle_policy" "this" {

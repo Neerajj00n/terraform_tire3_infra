@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "buckets" {
   for_each = local.s3_buckets
 
   bucket = each.value
-
+  force_destroy = true
   tags = {
     Environment = "PROD"
   }

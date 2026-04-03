@@ -1,0 +1,6 @@
+project_name      = "glodios"
+project_nick_name = "glodios"
+domain            = "dev.glodios.com"
+ACCOUNT_ID        = "327414657131"
+azs               = ["ap-south-1a", "ap-south-1b"]
+dbpassword        = "dev_password123"

@@ -228,7 +228,7 @@ resource "aws_iam_role_policy_attachment" "crm-service-role3" {
 data "aws_iam_policy_document" "s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${var.s3["crm-frontend"]}/*"]
+    resources = ["arn:aws:s3:::${var.s3["crm-frontend"]}/*"]
 
     principals {
       type        = "AWS"
@@ -246,7 +246,7 @@ resource "aws_s3_bucket_policy" "example" {
 data "aws_iam_policy_document" "s3_policy_onboarding" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${var.s3["onboarding"] }/*"]
+    resources = ["arn:aws:s3:::${var.s3["onboarding"]}/*"]
 
     principals {
       type        = "AWS"

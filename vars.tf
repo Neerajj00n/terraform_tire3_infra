@@ -1,36 +1,26 @@
 variable "project_name" {
     type = string
-    default = "glodios"
   
 }
 variable "domain" {
     description = "domain name product"
     type = string
-    default = "glodios.com"
   
 }
-
 variable "project_nick_name" {
     type = string
-    default = "glodios"
   
 }
-
 variable ACCOUNT_ID {
   type = string
-  default = "327414657131"
-}
 
+}
 variable "azs" {
  type        = list(string)
  description = "Availability Zones"
- default     = ["ap-south-1a", "ap-south-1b"]
 }
-
-
 variable "dbpassword" {
     type = string
-    default = "password123"
   
 }
 

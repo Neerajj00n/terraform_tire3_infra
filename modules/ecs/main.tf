@@ -27,6 +27,9 @@ resource "aws_autoscaling_group" "AutoScalingAutoScalingGroup" {
     termination_policies = [
         "Default"
     ]
+    timeouts {
+    delete = "20m"
+  }
 }
 
 resource "aws_autoscaling_group" "TaskAutoScalingGroup" {
@@ -58,6 +61,9 @@ resource "aws_autoscaling_group" "TaskAutoScalingGroup" {
     termination_policies = [
         "Default"
     ]
+    timeouts {
+    delete = "20m"
+  }
 }
 
 
@@ -150,7 +156,7 @@ resource "aws_ecs_service" "crm-service" {
     }
     desired_count = 3
    # task_definition = "${aws_ecs_task_definition.ECSTaskDefinition.arn}" 
-    task_definition = aws_ecs_task_definition.ECSTaskDefinition.id
+    task_definition = aws_ecs_task_definition.ECSTaskDefinition.arn
 
     deployment_maximum_percent = 200
     deployment_minimum_healthy_percent = 90
@@ -190,7 +196,7 @@ resource "aws_ecs_service" "payin-service" {
     }
     desired_count = 3
    # task_definition = "${aws_ecs_task_definition.ECSTaskDefinition.arn}" 
-    task_definition = aws_ecs_task_definition.payin-service.id
+    task_definition = aws_ecs_task_definition.payin-service.arn
 
     deployment_maximum_percent = 200
     deployment_minimum_healthy_percent = 90

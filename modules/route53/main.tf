@@ -51,6 +51,22 @@ resource "aws_route53_record" "subdomain2_public" {
   records = [var.ecs_alb_dns_name] # Replace with the desired DNS IP
 }
 
+resource "aws_route53_record" "crm-frontend" {
+  zone_id = aws_route53_zone.public_zone.zone_id
+  name    = "crm.${var.domain}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [var.cfd_frontend_domain_name] # Replace with the desired DNS IP
+  
+}
+
+resource "aws_route53_record" "onboarding" {
+  zone_id = aws_route53_zone.public_zone.zone_id
+  name    = "onboarding.${var.domain}"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [var.cfd_onboarding_domain_name] # Replace with the desired DNS IP
+}
 ########################################################
 #LOG GROUP
 resource "aws_cloudwatch_log_group" "LogsLogGroup" {
@@ -152,3 +168,4 @@ resource "aws_acm_certificate_validation" "alb_cert" {
   certificate_arn         = aws_acm_certificate.alb_cert.arn
   validation_record_fqdns = [for record in aws_route53_record.alb_cert_validation : record.fqdn]
 }
+

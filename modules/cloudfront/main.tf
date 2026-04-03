@@ -8,7 +8,7 @@ resource "aws_cloudfront_distribution" "CloudFrontDistributionfrontend" {
   ]
 
   origin {
-    domain_name = "crm-frontend.${var.domain}.s3.ap-south-1.amazonaws.com"
+    domain_name = "crm-frontend.${var.domain}.s3.amazonaws.com"
     origin_id   = "S3-crm-frontend.${var.domain}"
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.cf.cloudfront_access_identity_path
@@ -23,24 +23,19 @@ resource "aws_cloudfront_distribution" "CloudFrontDistributionfrontend" {
   http_version        = "http2"
 
   default_cache_behavior {
-    
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers.id
+  response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers.id
 
-    allowed_methods        = ["HEAD", "GET", "OPTIONS"]
-    cached_methods         = ["GET", "HEAD"]
-    target_origin_id       = "S3-crm-frontend.${var.domain}"
-    viewer_protocol_policy = "redirect-to-https"
-    compress               = true
-    smooth_streaming       = false
+  allowed_methods        = ["HEAD", "GET", "OPTIONS"]
+  cached_methods         = ["GET", "HEAD"]
+  target_origin_id       = "S3-crm-frontend.${var.domain}"
+  viewer_protocol_policy = "redirect-to-https"
+  compress               = true
+  smooth_streaming       = false
 
-    forwarded_values {
-      query_string = false
-      headers      = ["Host"]
-      cookies {
-        forward = "none"
-      }
-    }
-  }
+  cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+
+
+}
 
   custom_error_response {
     error_caching_min_ttl = 0
@@ -97,17 +92,7 @@ resource "aws_cloudfront_distribution" "CloudFrontDistributionOnboarding" {
         target_origin_id = "onboarding.${var.domain}"
         viewer_protocol_policy = "redirect-to-https"
         cached_methods = ["GET", "HEAD"]
-        
-        forwarded_values {
-        query_string = false
-
-        cookies {
-        forward = "none"
-      }
-
-        headers = ["Host"]
-        }
-        
+        cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
     }
     custom_error_response {
         error_caching_min_ttl = 0
@@ -127,7 +112,7 @@ resource "aws_cloudfront_distribution" "CloudFrontDistributionOnboarding" {
     viewer_certificate {
         acm_certificate_arn = var.cloudfront_cert
         cloudfront_default_certificate = false
-        minimum_protocol_version = "TLSv1.2_2018"
+        minimum_protocol_version = "TLSv1.2_2021"
         ssl_support_method = "sni-only"
     }
     restrictions {
